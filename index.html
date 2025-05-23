@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa de Streamers - ORG DELRIO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f0a0a;
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a0d0d 0%, #0f0a0a 100%);
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #0f0a0a;
+        }
+        
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0,  0px); }
+            50%  { transform: translate(0, 15px); }
+            100%   { transform: translate(0, -0px); }
+        }
+        
+        .highlight-text {
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        .benefit-card {
+            border-left: 4px solid #ef4444;
+            transition: all 0.3s ease;
+        }
+        
+        .promo-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(45deg, #ef4444, #f59e0b);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: shake 2s infinite;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        
+        .discord-btn {
+            background: #5865F2;
+            transition: all 0.3s ease;
+        }
+        
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: scale(1.05);
+        }
+        
+        .stats-card {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #333;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #f59e0b);
+            width: 0;
+            transition: width 2s ease;
+        }
+        
+        .testimonial-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-left: 4px solid #ef4444;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+        }
+        
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #ef4444;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ef4444; }
+        }
+        
+        .discord-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #5865F2;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transform: translateX(-120%);
+            transition: transform 0.5s ease;
+        }
+        
+        .discord-popup.show {
+            transform: translateX(0);
+        }
+        
+        .discord-popup-close {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        /* Contra Style Additions */
+        .contra-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ef4444;
+            border-radius: 0;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .contra-title {
+            color: #ef4444;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .contra-text {
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .contra-highlight {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        
+        .contra-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        
+        .contra-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .contra-list li:before {
+            content: "•";
+            color: #ef4444;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Payment Highlight */
+        .payment-highlight {
+            background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.2));
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .payment-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .requirement-badge {
+            display: inline-block;
+            background-color: #ef4444;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .delrio-logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        /* Countdown Styles */
+        .countdown-container {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .countdown-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ef4444;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .countdown-item {
+            text-align: center;
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .countdown-label {
+            font-size: 0.8rem;
+            color: #f8fafc;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Discord Popup -->
+    <div id="discordPopup" class="discord-popup">
+        <i class="fab fa-discord text-2xl mr-3"></i>
+        <div>
+            <p class="font-bold">Entre no nosso Discord!</p>
+            <p class="text-sm">Ao fechar com a gente, você já ganha uma fila exclusiva!</p>
+        </div>
+        <span id="closePopup" class="discord-popup-close">
+            <i class="fas fa-times"></i>
+        </span>
+    </div>
+    
+    <!-- Header -->
+    <header class="gradient-bg border-b border-red-500/20 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://cdn.discordapp.com/avatars/1353107772220248196/b090eed088a2c46ee1b7ebc3a77dc296.png?size=512" 
+                         alt="ORG DELRIO Logo" 
+                         class="w-12 h-12 rounded-full border-2 border-red-500 hover:rotate-12 transition-transform duration-300">
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
+                        ORG DELRIO
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://discord.gg/2t4vu9txu3" target="_blank" class="hidden md:flex items-center discord-btn text-white font-semibold py-2 px-4 rounded-full transition duration-300">
+                        <i class="fab fa-discord mr-2"></i> ENTRAR NO DISCORD
+                    </a>
+                    <a href="#apply" class="btn-pulse bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+                        QUERO FAZER PARTE
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="inline-block bg-yellow-500/10 text-yellow-500 px-4 py-1 rounded-full text-sm font-semibold mb-4">
+                        <span class="typewriter">VAGAS LIMITADAS!</span>
+                    </div>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="countdown-container">
+                        <div class="countdown-title">
+                            <i class="fas fa-clock mr-2"></i> PROMOÇÃO TERMINA EM:
+                        </div>
+                        <div class="countdown-timer">
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="countdown-days">03</div>
+                                <div class="countdown-label">Dias</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="countdown-hours">23</div>
+                                <div class="countdown-label">Horas</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="countdown-minutes">59</div>
+                                <div class="countdown-label">Minutos</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="countdown-seconds">59</div>
+                                <div class="countdown-label">Segundos</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                        <span class="highlight-text">
+                            TORNE-SE STREAMER OFICIAL
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8">
+                        Junte-se ao nosso programa exclusivo e transforme sua paixão por games em uma <span class="font-bold text-red-400">carreira lucrativa</span> com suporte completo da ORG DELRIO!
+                    </p>
+                    
+                    <!-- Payment Highlight Box -->
+                    <div class="payment-highlight mb-8">
+                        <div class="payment-title">PAGAMENTOS SEMANAIS VIA PIX</div>
+                        <div class="flex items-center">
+                            <span class="requirement-badge">REQUISITO</span>
+                            <span class="contra-text">Mínimo 5 apostas por live</span>
+                        </div>
+                        <div class="faq-tip mt-2">
+                            <i class="fas fa-info-circle"></i> Pagamentos semanais via PIX toda sexta-feira
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#benefits" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 flex items-center">
+                            <i class="fas fa-star mr-2"></i> VER BENEFÍCIOS
+                        </a>
+                        <a href="https://discord.gg/2t4vu9txu3" target="_blank" class="discord-btn text-white font-semibold py-3 px-6 rounded-full transition duration-300 flex items-center">
+                            <i class="fab fa-discord mr-2"></i> COMUNIDADE
+                        </a>
+                    </div>
+                    
+                    <!-- Stats Counter -->
+                    <div class="mt-10 grid grid-cols-2 md:grid-cols-2 gap-4">
+                        <div class="stats-card">
+                            <div class="counter">14</div>
+                            <p class="text-gray-400 text-sm">Streamers Ativos</p>
+                        </div>
+                        <div class="stats-card">
+                            <div class="counter">59</div>
+                            <p class="text-gray-400 text-sm">Membros</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative floating">
+                        <div class="absolute -inset-4 bg-red-500/20 rounded-2xl blur-lg"></div>
+                        <div class="relative bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-red-500/20 max-w-md">
+                            <div class="flex items-center mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center mr-3">
+                                        <i class="fas fa-coins text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">R$30 por semana</h3>
+                                        <p class="text-sm text-gray-400">Salário base + possibilidade de aumento</p>
+                                        <div class="progress-bar mt-1">
+                                            <div class="progress-fill" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center mr-3">
+                                        <i class="fas fa-crown text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">Cargo @Streamer</h3>
+                                        <p class="text-sm text-gray-400">Reconhecimento na comunidade</p>
+                                        <div class="progress-bar mt-1">
+                                            <div class="progress-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full bg-red-400 flex items-center justify-center mr-3">
+                                        <i class="fas fa-bullhorn text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold">Fila Exclusiva</h3>
+                                        <p class="text-sm text-gray-400">Para jogar com seu público</p>
+                                        <div class="progress-bar mt-1">
+                                            <div class="progress-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <a href="#apply" class="w-full btn-pulse bg-gradient-to-r from-red-600 to-yellow-600 hover:from-red-700 hover:to-yellow-700 text-white font-semibold py-3 px-4 rounded-full transition duration-300 flex items-center justify-center">
+                                        <i class="fas fa-rocket mr-2"></i> QUERO ME INSCREVER
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section id="benefits" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="highlight-text">
+                        BENEFÍCIOS EXCLUSIVOS
+                    </span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Como Streamer Oficial da ORG DELRIO, você terá acesso a vantagens que vão impulsionar sua carreira:
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Benefit 1 -->
+                <div class="contra-box">
+                    <div class="contra-title">
+                        <i class="fas fa-money-bill-wave mr-2"></i> REMUNERAÇÃO SEMANAL
+                    </div>
+                    <div class="contra-text">
+                        <p>Você recebe <span class="contra-highlight">R$30 toda semana</span> como pagamento base inicial.</p>
+                        <p class="mt-2">Se se dedicar e crescer, seu salário pode aumentar!</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 2 -->
+                <div class="contra-box">
+                    <div class="contra-title">
+                        <i class="fas fa-crown mr-2"></i> CARGO @STREAMER
+                    </div>
+                    <div class="contra-text">
+                        <p>Reconhecimento oficial na comunidade com o cargo <span class="contra-highlight">@Streamer</span>.</p>
+                        <p class="mt-2">Destaque-se entre os membros e show que você é profissional.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 3 -->
+                <div class="contra-box">
+                    <div class="contra-title">
+                        <i class="fas fa-users mr-2"></i> FILA EXCLUSIVA
+                    </div>
+                    <div class="contra-text">
+                        <p>Fila especial para jogar com <span class="contra-highlight">seu público</span> e interagir melhor.</p>
+                        <p class="mt-2">Prioridade nos jogos e eventos da organização.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 4 -->
+                <div class="contra-box">
+                    <div class="contra-title">
+                        <i class="fas fa-phone mr-2"></i> CALL PRIVADA
+                    </div>
+                    <div class="contra-text">
+                        <p>Após sua <span class="contra-highlight">3ª live</span>, você ganha uma call privada com nossa equipe.</p>
+                        <p class="mt-2">Feedback personalizado e dicas para melhorar seu conteúdo.</p>
+                    </div>
+                </div>
+                
+                <!-- Benefit 5 -->
+                <div class="contra-box">
+                    <div class="contra-title">
+                        <i class="fas fa-bullhorn mr-2"></i> DIVULGAÇÃO
+                    </div>
+                    <div class="contra-text">
+                        <p>Sua stream será divulgada em todos nossos canais:</p>
+                        <ul class="contra-list mt-2">
+                            <li>Discord oficial</li>
+                            <li>Redes sociais</li>
+                            <li>Grupos de membros</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Immediate Benefit -->
+            <div class="mt-12 max-w-4xl mx-auto contra-box">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/4 flex justify-center mb-4 md:mb-0">
+                        <div class="bg-yellow-500/20 p-4 rounded-full">
+                            <i class="fas fa-bolt text-yellow-400 text-4xl"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-3/4 text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-2 text-yellow-400">BENEFÍCIO IMEDIATO!</h3>
+                        <p class="contra-text">
+                            Ao fechar com a gente, você <span class="contra-highlight">já ganha uma fila exclusiva</span> no nosso sistema de atendimento, garantindo prioridade em suporte, resolução de problemas em acesso a oportunidades especiais!
+                        </p>
+                        <div class="mt-4">
+                            <a href="https://discord.gg/2t4vu9txu3" target="_blank" class="inline-flex items-center discord-btn text-white font-semibold py-2 px-6 rounded-full transition duration-300">
+                                <i class="fab fa-discord mr-2"></i> GARANTA SUA FILA AGORA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#apply" class="inline-flex items-center btn-pulse bg-gradient-to-r from-red-600 to-yellow-600 hover:from-red-700 hover:to-yellow-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
+                    <i class="fas fa-paper-plane mr-2"></i> QUERO ME INSCREVER AGORA
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="gradient-bg border-t border-red-500/20 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://cdn.discordapp.com/avatars/1353107772220248196/b090eed088a2c46ee1b7ebc3a77dc296.png?size=512" 
+                             alt="ORG DELRIO Logo" 
+                             class="w-12 h-12 rounded-full border-2 border-red-500">
+                        <h2 class="text-xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
+                            ORG DELRIO
+                        </h2>
+                    </div>
+                    <p class="text-gray-400 mt-2 text-sm">
+                        Transformando streamers em profissionais desde 2023.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://discord.gg/2t4vu9txu3" target="_blank" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-discord text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-twitch text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2023 ORG DELRIO. Todos os direitos reservados.</p>
+                <p class="mt-2">Este site não tem afiliação com Twitch, YouTube ou qualquer outra plataforma de streaming.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize particles.js
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ef4444"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ef4444",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+            
+            // Show discord popup after 5 seconds
+            setTimeout(function() {
+                document.getElementById('discordPopup').classList.add('show');
+            }, 5000);
+            
+            // Close popup
+            document.getElementById('closePopup').addEventListener('click', function() {
+                document.getElementById('discordPopup').classList.remove('show');
+            });
+            
+            // Countdown timer (3 days from now)
+            const countdownDate = new Date();
+            countdownDate.setDate(countdownDate.getDate() + 3);
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0');
+                
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown-days').textContent = '00';
+                    document.getElementById('countdown-hours').textContent = '00';
+                    document.getElementById('countdown-minutes').textContent = '00';
+                    document.getElementById('countdown-seconds').textContent = '00';
+                }
+            }
+            
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            // Stats counter animation
+            function animateCounters() {
+                const counters = document.querySelectorAll('.counter');
+                const speed = 200;
+                
+                counters.forEach(counter => {
+                    const target = counter.textContent;
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(animateCounters, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                });
+            }
+            
+            // Start counter animation when scrolled to
+            window.addEventListener('scroll', function() {
+                const heroSection = document.querySelector('section.py-20');
+                const heroSectionPosition = heroSection.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (heroSectionPosition < screenPosition) {
+                    animateCounters();
+                    // Remove event listener after first trigger
+                    window.removeEventListener('scroll', this);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
